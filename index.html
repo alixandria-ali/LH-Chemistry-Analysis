@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liam L. Chemistry A Breakdown & Analysis</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 2.2em;
+        }
+
+        .subtitle {
+            color: #7f8c8d;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+
+        .overview {
+            background: #ecf0f1;
+            padding: 20px;
+            border-radius: 6px;
+            margin-bottom: 30px;
+            border-left: 4px solid #3498db;
+        }
+
+        .overview h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 1.4em;
+        }
+
+        .overview ul {
+            margin-left: 20px;
+            color: #34495e;
+        }
+
+        .overview li {
+            margin: 5px 0;
+        }
+
+        .question-card {
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            padding: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            transition: box-shadow 0.3s ease;
+        }
+
+        .question-card:hover {
+            box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+        }
+
+        .question-header {
+            background: #3498db;
+            color: white;
+            padding: 12px 16px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            font-weight: 600;
+            font-size: 1.1em;
+        }
+
+        .question-content {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            border-left: 3px solid #3498db;
+            white-space: pre-wrap;
+            line-height: 1.8;
+        }
+
+        .analysis-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .analysis-item {
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            overflow: hidden;
+            background: white;
+        }
+
+        .analysis-header {
+            background: #34495e;
+            color: white;
+            padding: 12px 15px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            transition: background 0.3s ease;
+        }
+
+        .analysis-header:hover {
+            background: #2c3e50;
+        }
+
+        .analysis-header.tested {
+            background: #27ae60;
+        }
+
+        .analysis-header.tested:hover {
+            background: #229954;
+        }
+
+        .analysis-header.chem-b {
+            background: #e74c3c;
+        }
+
+        .analysis-header.chem-b:hover {
+            background: #c0392b;
+        }
+
+        .analysis-header.ap-chem {
+            background: #9b59b6;
+        }
+
+        .analysis-header.ap-chem:hover {
+            background: #8e44ad;
+        }
+
+        .analysis-header.consequence {
+            background: #e67e22;
+        }
+
+        .analysis-header.consequence:hover {
+            background: #d35400;
+        }
+
+        .analysis-header.recommendation {
+            background: #16a085;
+        }
+
+        .analysis-header.recommendation:hover {
+            background: #138d75;
+        }
+
+        .toggle-icon {
+            font-size: 1.2em;
+            transition: transform 0.3s ease;
+        }
+
+        .toggle-icon.open {
+            transform: rotate(180deg);
+        }
+
+        .analysis-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.4s ease;
+            background: #f8f9fa;
+        }
+
+        .analysis-content.open {
+            max-height: 1000px;
+            padding: 15px;
+            border-top: 2px solid #ecf0f1;
+        }
+
+        .analysis-brief {
+            font-style: italic;
+            color: #555;
+            margin-bottom: 10px;
+            padding: 10px;
+            background: #fff;
+            border-radius: 4px;
+        }
+
+        .analysis-explanation {
+            color: #2c3e50;
+            line-height: 1.8;
+            padding: 10px;
+            background: white;
+            border-radius: 4px;
+            border-left: 3px solid #3498db;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            .analysis-grid {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 1.6em;
+            }
+        }
+
+        .legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 20px 0;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 6px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .legend-color {
+            width: 30px;
+            height: 20px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Liam L. Chemistry A Breakdown & Analysis</h1>
+        <p class="subtitle">Understanding Foundational Gaps and Building a Path Forward</p>
+
+        <div class="overview">
+            <h2>10 Lessons Required from Chemistry A</h2>
+            <ul>
+                <li>Scientific Models & Measurements</li>
+                <li>Periodic Table</li>
+                <li>Ionic Compounds and Metals</li>
+                <li>Covalent Compounds</li>
+                <li>Complex Structures</li>
+                <li>Organic Compounds</li>
+                <li>Chemical Reaction Patterns</li>
+                <li>Advanced Reaction Patterns</li>
+                <li>Reaction Rates and Chemical Equilibrium</li>
+            </ul>
+        </div>
+
+        <div class="legend">
+            <div class="legend-item">
+                <div class="legend-color" style="background: #27ae60;"></div>
+                <span><strong>What This Tested</strong> - The specific concept and topic</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #e74c3c;"></div>
+                <span><strong>Chemistry B Impact</strong> - Why this matters for Chem B</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #9b59b6;"></div>
+                <span><strong>AP Chemistry Impact</strong> - Why this matters for AP Chem</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #e67e22;"></div>
+                <span><strong>Consequences</strong> - What happens if skipped</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #16a085;"></div>
+                <span><strong>Recommendation</strong> - Chem A lesson to study</span>
+            </div>
+        </div>
+
+        <div id="questions-container"></div>
+    </div>
+
+    <script>
+        const questionsData = [
+            {
+                questionNum: "Question 3",
+                topic: "Properties and Changes of Matter",
+                question: `In an experiment, chemists heated a solid, red substance in a test tube. Vapors from the heated red substance condensed as a metallic liquid on the side of the tube. The red substance eventually disappeared, leaving only the metallic liquid and producing a gas that escaped from the tube. Which statement best describes what happened to the red substance in this experiment?
+
+A. The experiment demonstrates the formation of plasma from the red substance.
+B. The experiment demonstrates a physical property of the red substance.
+C. The experiment shows that the red substance experienced a chemical change.
+D. The experiment shows that the red substance can be a solid, liquid, or gas.
+E. The experiment shows that the red substance is an element.`,
+                tested: "Distinguishing physical vs chemical change. Topic: Properties and Changes of Matter.",
+                chemB: "Chem B stoichiometry assumes the ability to classify reactions correctly.",
+                apChem: "AP thermochemistry and equilibrium rely on understanding chemical change vs phase change.",
+                consequence: "Confusion between phase change and reaction will cause errors in thermochemistry and equilibrium units.",
+                recommendation: "Properties and Changes of Matter",
+                expandedTested: "This question tests the fundamental ability to distinguish between physical changes (changes in state or appearance without altering chemical identity) and chemical changes (formation of new substances with different properties). The key indicator here is that the red substance disappears and produces TWO different substances (metallic liquid + gas), which means the original chemical composition changed. This is foundational chemistry understanding that everything else builds upon.",
+                expandedChemB: "Chemistry B stoichiometry heavily depends on correctly identifying what type of reaction is occurring. When calculating molar ratios, limiting reagents, and percent yields, you must first recognize whether substances are truly reacting (chemical change) or just changing phase (physical change). If you misidentify a phase change as a reaction, you'll write incorrect balanced equations and get all subsequent calculations wrong. This skill is prerequisite for every quantitative analysis unit in Chem B.",
+                expandedApChem: "AP Chemistry thermochemistry requires distinguishing between enthalpy of reaction (chemical change) and enthalpy of phase change (physical change) because they involve completely different energy calculations and concepts. Chemical equilibrium problems (a major AP topic) rely on this distinction because only chemical changes reach equilibrium - phase changes don't have equilibrium constants. Mixing these up will lead to incorrect ΔH calculations and misapplied equilibrium principles on FRQs.",
+                expandedConsequence: "Without this foundation, students will incorrectly apply thermochemistry formulas (using ΔHf° when they should use ΔHvap), misunderstand Le Chatelier's principle applications, and struggle to write correct equilibrium expressions. This creates a cascading effect where every subsequent unit involving energy and equilibrium becomes confusing because the fundamental distinction between 'same substance, different state' and 'different substances formed' is unclear.",
+                expandedRecommendation: "Complete the 'Properties and Changes of Matter' lesson in Chemistry A. This lesson systematically teaches observation skills for identifying chemical vs physical changes, introduces key vocabulary (reactants, products, phase transitions), and provides practice problems with clear indicators. Mastering this lesson provides the conceptual foundation needed for all reaction-based chemistry in Chem B and AP."
+            },
+            {
+                questionNum: "Question 4",
+                topic: "The Periodic Table",
+                question: `Drag the tiles to the correct location on the table. Not all tiles will be used. Match the properties to the family of elements they describe.
+
+Tiles:
+• are placed in group 12
+• react vigorously with metals
+• don't react with any other elements
+• are placed in group 1
+• are placed in group 17
+• can be cut with a knife
+
+Families: Alkali Metals | Halogens`,
+                tested: "Periodic families and properties. Topic: The Periodic Table.",
+                chemB: "Chem B acids/bases and bonding rely on periodic trends.",
+                apChem: "AP bonding, electronegativity, and redox depend on group trends.",
+                consequence: "Weak understanding of reactivity trends will impair acid-base and redox reasoning.",
+                recommendation: "The Periodic Table",
+                expandedTested: "This question assesses knowledge of group-specific properties: recognizing that alkali metals (Group 1) are soft, highly reactive metals that can be cut with a knife, while halogens (Group 17) are highly reactive nonmetals that react vigorously with metals. Understanding periodic families means knowing not just where groups are located, but their characteristic behaviors, reactivity patterns, and physical properties. This is pattern recognition that enables prediction of chemical behavior.",
+                expandedChemB: "Chemistry B acid-base chemistry requires understanding that Group 1 metals form strong bases (like NaOH, KOH) due to their tendency to lose electrons easily, while Group 17 halogens form strong acids (like HCl, HBr). Bonding units require predicting bond types based on position: metals + nonmetals form ionic bonds, while nonmetals + nonmetals form covalent bonds. Without recognizing periodic families and their trends, these predictions become random guessing rather than logical reasoning based on electron configuration patterns.",
+                expandedApChem: "AP Chemistry electronegativity trends (which control bond polarity) directly relate to position on the periodic table - halogens have the highest electronegativity among groups. Redox reactions require predicting which species will be oxidized or reduced, and this depends on understanding that Group 1 metals are the most easily oxidized while Group 17 halogens are strong oxidizing agents. VSEPR theory and molecular geometry also depend on knowing typical bonding patterns for different groups.",
+                expandedConsequence: "Students will struggle to predict whether a compound will be ionic or covalent, won't understand why NaOH is a strong base while NH₃ is weak, can't predict redox reaction products, and will have difficulty with electronegativity-based questions. This creates problems in bonding, acid-base, redox, and thermochemistry units because all of these rely on understanding element behavior patterns based on periodic table position.",
+                expandedRecommendation: "Study 'The Periodic Table' lesson in Chemistry A. This lesson teaches periodic trends (atomic radius, ionization energy, electronegativity), group properties, and how electron configuration determines chemical behavior. It provides the pattern-recognition framework needed for predicting chemical behavior throughout all chemistry courses."
+            },
+            {
+                questionNum: "Question 5",
+                topic: "Covalent Compounds",
+                question: `What is the chemical name of the covalent compound P₄S₃?
+
+A. tetraphosphate trisulfide
+B. triphosphate tetrasulfide
+C. tetraphosphorus trisulfide
+D. quadriphosphide trisulfur
+E. quadriphosphorus trisulfide`,
+                tested: "Covalent naming rules. Topic: Covalent Compounds.",
+                chemB: "Chem B advanced stoichiometry requires formula-name fluency.",
+                apChem: "AP FRQs require fast compound naming and formula writing.",
+                consequence: "Persistent misidentification of compound types.",
+                recommendation: "Covalent Compounds",
+                expandedTested: "This tests the systematic naming rules for molecular (covalent) compounds: use Greek prefixes (mono-, di-, tri-, tetra-) with element names, not oxidation states or -ate/-ide endings used for ionic compounds. The correct answer uses the element name 'phosphorus' (not phosphate/phosphide) and 'sulfide' (the second element gets -ide). This distinguishes molecular naming from ionic naming conventions and tests prefix usage for subscripts.",
+                expandedChemB: "Chemistry B stoichiometry problems require quickly converting between names and formulas for all compound types. Advanced stoichiometry includes gas law problems, solution concentration calculations, and reaction yield problems that all require accurate formula writing from compound names. If you can't reliably distinguish 'tetraphosphorus trisulfide' (molecular, P₄S₃) from 'copper(II) sulfide' (ionic, CuS), you'll write wrong formulas, leading to incorrect molar mass calculations and wrong answers throughout the entire unit.",
+                expandedApChem: "AP Chemistry FRQs frequently require writing formulas from names and vice versa without multiple choice options. Time pressure means you need instant recall of naming systems. Additionally, thermochemistry tables list compounds by name, requiring formula conversion for calculations. Mixing up ionic and molecular naming leads to wrong formulas, which cascade into incorrect stoichiometry, wrong molar masses, and failed dimensional analysis on timed exams.",
+                expandedConsequence: "Students will write CuS when the problem means Cu₂S, or write P₂S₃ when it should be P₄S₃, causing all subsequent stoichiometric calculations to be wrong even if the method is correct. This makes it impossible to earn full credit on multi-step problems because the foundational formula is incorrect. Additionally, inability to name compounds correctly makes it difficult to follow lab procedures, interpret chemical literature, or communicate chemistry clearly.",
+                expandedRecommendation: "Complete the 'Covalent Compounds' lesson in Chemistry A. This lesson systematically covers Greek prefixes, explains when to use molecular vs ionic naming, provides comparison tables, and includes extensive practice to build automaticity. Mastering this creates fluency in chemical language essential for all advanced chemistry."
+            },
+            {
+                questionNum: "Question 6",
+                topic: "Chemical Reaction Patterns",
+                question: `In which reaction is precipitation occurring?
+
+A. MgCl₂(aq) + CuSO₄(aq) → CuCl₂(aq) + MgSO₄(aq)
+B. CdSO₄(aq) + K₂S(aq) → CdS(s) + K₂SO₄(aq)
+C. NaOH(aq) + NH₄Cl(aq) → NaCl(aq) + NH₄OH(aq)
+D. K₂SO₄(aq) + NaOH(aq) → K₂OH(aq) + NaSO₄(aq)
+E. HNO₃(aq) + KOH(aq) → KNO₃(aq) + H₂O(l)`,
+                tested: "Solubility rules & reaction types. Topic: Chemical Reaction Patterns.",
+                chemB: "Chem B quantitative analysis uses precipitation frequently.",
+                apChem: "AP net ionic equations and Ksp rely on this.",
+                consequence: "Difficulty identifying solid formation in equilibrium problems.",
+                recommendation: "Chemical Reaction Patterns",
+                expandedTested: "This question tests knowledge of solubility rules and the ability to identify precipitation reactions (double displacement reactions that form an insoluble solid). The key is recognizing that CdS (cadmium sulfide) is insoluble and forms a precipitate (s), while the other products remain aqueous (aq). Students must know common solubility patterns: most sulfides are insoluble, most chlorides are soluble, Group 1 compounds are always soluble. The (s) state symbol is the critical indicator.",
+                expandedChemB: "Chemistry B quantitative analysis includes gravimetric analysis, where you calculate masses of precipitates formed, and titrations, where precipitation endpoint detection is crucial. Stoichiometry problems involving limiting reagents often use precipitation reactions because the solid formed can be measured. If you can't predict which combinations form precipitates, you can't write correct balanced equations for these reactions, making all mass/mole calculations impossible. Solution chemistry units entirely depend on solubility understanding.",
+                expandedApChem: "AP Chemistry requires writing net ionic equations (which requires identifying spectator ions vs precipitate ions) and calculating solubility product constants (Ksp). These concepts are foundational for equilibrium units and appear frequently on FRQs. Additionally, qualitative analysis (identifying unknown ions by precipitation reactions) is a common lab scenario. Without solid grasp of solubility rules, students can't write net ionic equations correctly and will struggle with Ksp problems entirely.",
+                expandedConsequence: "Students will be unable to predict reaction products in double displacement reactions, can't write net ionic equations (because they can't identify what precipitates), will incorrectly calculate Ksp values, and struggle with qualitative analysis labs. This creates major difficulties in equilibrium, solution chemistry, and analytical chemistry units. In practical terms, they won't understand why certain reactions can be used for quantitative analysis while others cannot.",
+                expandedRecommendation: "Study the 'Chemical Reaction Patterns' lesson in Chemistry A. This lesson teaches solubility rules through memorable patterns, classification of reaction types (synthesis, decomposition, single replacement, double replacement), and predicting products. It includes extensive practice with state symbols (s, l, g, aq) which are critical for advanced chemistry. Mastering this enables product prediction and reaction type identification needed for all of Chem B and AP."
+            },
+            {
+                questionNum: "Question 7",
+                topic: "Organic Compounds",
+                question: `Which substance is a source of hydrocarbons?
+
+A. natural gas
+B. protein
+C. silk
+D. starch
+E. water`,
+                tested: "Organic compound basics. Topic: Organic Compounds.",
+                chemB: "Chem B organic functional groups unit.",
+                apChem: "AP biochemistry and intermolecular forces.",
+                consequence: "Misunderstanding carbon backbone chemistry.",
+                recommendation: "Organic Compounds",
+                expandedTested: "This tests basic organic chemistry understanding: recognizing that hydrocarbons are compounds containing ONLY carbon and hydrogen. Natural gas (primarily methane, CH₄, and other small alkanes) is pure hydrocarbon, while proteins contain nitrogen, starch contains oxygen, and water contains no carbon. This foundational definition is essential before studying functional groups, because understanding what a 'pure' hydrocarbon is enables recognition of functional groups as added elements/groups.",
+                expandedChemB: "Chemistry B includes an entire unit on organic functional groups (alcohols, aldehydes, ketones, carboxylic acids, esters, ethers, amines). This unit builds directly on hydrocarbon structure by showing how adding oxygen, nitrogen, or other elements creates different functional groups with different properties. If the basic concept of 'carbon-hydrogen backbone' isn't solid, students can't understand how functional groups modify properties. Nomenclature for organic compounds also starts with hydrocarbon base names.",
+                expandedApChem: "AP Chemistry biochemistry questions involve amino acids, proteins, and carbohydrates - all built on hydrocarbon backbones with functional groups attached. Intermolecular force problems frequently use organic molecules, requiring identification of which parts are nonpolar hydrocarbon regions vs polar functional groups. Combustion analysis (determining empirical formulas) often involves hydrocarbons. Without understanding basic hydrocarbon structure, these problems become incomprehensible.",
+                expandedConsequence: "Students will struggle to identify functional groups (because they can't distinguish the hydrocarbon backbone from the functional group), have difficulty with organic nomenclature, can't predict relative boiling points of organic molecules (because they don't understand which parts contribute to nonpolar vs polar character), and will struggle with combustion reaction problems. This affects organic chemistry, biochemistry, and intermolecular force units.",
+                expandedRecommendation: "Complete the 'Organic Compounds' lesson in Chemistry A. This lesson introduces hydrocarbon classification (alkanes, alkenes, alkynes), basic nomenclature, structural formulas, and the concept of functional groups. It provides the foundation for understanding organic chemistry that appears in both Chem B and AP Chemistry organic/biochemistry units."
+            },
+            {
+                questionNum: "Question 8",
+                topic: "Complex Structures",
+                question: `Which statements correctly match a chemical name with its formula? Use the list of polyatomic ions and the periodic table to help answer.
+
+• The chemical formula for ammonium carbonate is NH₄CO₃.
+• The chemical formula for ammonium hypochlorite is NH₄ClO.
+• The chemical formula for ammonium nitrate is NH₄NO₃.
+• The chemical formula for ammonium phosphate is NH₄PO₄.
+• The chemical formula for ammonium sulfite is (NH₄)₂SO₃.`,
+                tested: "Polyatomic ion recognition. Topic: Complex Structures.",
+                chemB: "Chem B acids/bases rely on polyatomic ions.",
+                apChem: "AP equilibrium, buffers, and redox use polyatomic fluency.",
+                consequence: "Incorrect formula writing in equilibrium constants.",
+                recommendation: "Complex Structures",
+                expandedTested: "This tests recognition of common polyatomic ions (NH₄⁺, CO₃²⁻, ClO⁻, NO₃⁻, PO₄³⁻, SO₃²⁻) and the ability to balance charges to write correct formulas. The key skill is recognizing when parentheses are needed: (NH₄)₂SO₃ requires parentheses because multiple NH₄⁺ ions are needed to balance SO₃²⁻. Wrong answers show incorrect charge balancing (NH₄CO₃ should be (NH₄)₂CO₃; NH₄PO₄ should be (NH₄)₃PO₄). This is critical for formula writing throughout chemistry.",
+                expandedChemB: "Chemistry B acid-base units extensively use polyatomic ions: H₂SO₄, HNO₃, H₃PO₄ are common acids; their conjugate bases (sulfate, nitrate, phosphate) appear in buffer problems and neutralization reactions. Solution stoichiometry requires writing correct formulas for compounds like calcium phosphate, ammonium sulfate, etc. Without instant recognition of polyatomic ions and their charges, formula writing becomes guess-and-check rather than systematic charge balancing, making all stoichiometry calculations unreliable.",
+                expandedApChem: "AP Chemistry equilibrium constants (Ka, Kb, Ksp) require writing correct formulas for all species in equilibrium expressions. Buffer problems involve weak acid/conjugate base pairs (often polyatomic ions like acetate, phosphate). Redox reactions frequently involve polyatomic ions (permanganate, dichromate, nitrate as oxidizing agents). FRQs don't provide formulas - you must know them. Incorrect formulas mean incorrect equilibrium expressions, wrong Ka/Kb values, and failed buffer calculations.",
+                expandedConsequence: "Students will write wrong formulas in all equilibrium problems (leading to wrong K expressions), incorrectly balance ionic equations (affecting stoichiometry), struggle with buffer problems (can't identify conjugate pairs), and make errors in redox reactions involving polyatomic ions. This affects acid-base, equilibrium, buffer, and electrochemistry units across both Chem B and AP Chemistry. Every quantitative problem involving these ions will have errors.",
+                expandedRecommendation: "Master the 'Complex Structures' lesson in Chemistry A. This lesson provides systematic coverage of polyatomic ion names, formulas, and charges, teaches charge balancing with polyatomic ions, explains when parentheses are needed, and includes extensive practice. Memorization of common polyatomic ions is essential - this lesson provides flashcard-style practice and mnemonic devices to build automatic recall needed for advanced courses."
+            },
+            {
+                questionNum: "Question 9",
+                topic: "Reaction Rates and Chemical Equilibrium",
+                question: `How does adding oxygen (O₂) to this reaction change the equilibrium?
+2SO₂(g) + O₂(g) ⇌ 2SO₃(g)
+
+A. The equilibrium shifts right to produce more SO₃ molecules.
+B. The equilibrium shifts left to produce more O₂ molecules.
+C. The equilibrium shifts right because of decreased collisions between SO₂ and O₂ molecules.
+D. The equilibrium shifts left with an increase in SO₂ and O₂ molecules.
+E. The equilibrium shifts left because of increased collisions between SO₂ and O₂ molecules.`,
+                tested: "Equilibrium shifts. Topic: Reaction Rates and Chemical Equilibrium.",
+                chemB: "Chem B equilibrium unit.",
+                apChem: "AP equilibrium math-heavy unit.",
+                consequence: "Major breakdown in Q vs K comparisons.",
+                recommendation: "Reaction Rates and Chemical Equilibrium",
+                expandedTested: "This tests Le Chatelier's Principle: when a stress is applied to a system at equilibrium, the system shifts to relieve that stress. Adding O₂ (a reactant) increases reactant concentration, so the equilibrium shifts toward products (right) to consume the added O₂. This is fundamental equilibrium reasoning that distinguishes reversible reactions from completion reactions and is prerequisite for all quantitative equilibrium work.",
+                expandedChemB: "Chemistry B has an entire equilibrium unit covering Le Chatelier's Principle, equilibrium constant expressions (Keq, Kp), and calculations involving ICE tables. This question tests the conceptual foundation needed before mathematical equilibrium calculations. If students don't understand directional shifts qualitatively, they can't interpret what ICE table results mean, can't predict whether adding/removing substances will increase or decrease product formation, and struggle with real-world applications like industrial processes (Haber process, Contact process).",
+                expandedApChem: "AP Chemistry equilibrium is one of the most heavily weighted units on the exam. It includes complex calculations involving Kp, Kc, Ksp, Ka, Kb, and Kw, all requiring understanding of equilibrium shifts. Buffer problems, acid-base equilibria, and solubility equilibria all depend on Le Chatelier reasoning. Additionally, thermodynamics connections (ΔG and K relationships) require solid equilibrium foundations. FRQs frequently ask for qualitative predictions (will the reaction shift left or right?) followed by quantitative calculations.",
+                expandedConsequence: "Students will be unable to predict reaction response to stress (concentration, temperature, pressure changes), can't interpret equilibrium constant values, struggle with buffer capacity reasoning, have difficulty with Ksp precipitation predictions, and cannot connect thermodynamics to equilibrium. This causes failure in equilibrium, acid-base, buffer, solubility, and thermodynamics units - essentially all of second-semester AP Chemistry.",
+                expandedRecommendation: "Study 'Reaction Rates and Chemical Equilibrium' in Chemistry A. This lesson introduces reversible reactions, equilibrium concept, Le Chatelier's Principle with multiple stress types, and connects collision theory to equilibrium. It provides the conceptual framework needed before tackling the mathematical complexity of equilibrium calculations in Chem B and AP. This is arguably the most important foundational lesson for success in advanced chemistry courses."
+            },
+            {
+                questionNum: "Question 12",
+                topic: "Organic Compounds",
+                question: `Drag each tile to the correct image. Match each alkane name with its structure.
+
+Names: • octane • heptane • butane • decane • propane`,
+                tested: "Alkane naming. Topic: Organic Compounds.",
+                chemB: "Chem B hydrocarbon unit.",
+                apChem: "AP organic reactions assume alkane mastery.",
+                consequence: "Confusion in molecular structure interpretation.",
+                recommendation: "Organic Compounds",
+                expandedTested: "This tests systematic IUPAC nomenclature for straight-chain alkanes using Greek numerical prefixes: propane (3 carbons), butane (4), heptane (7), octane (8), decane (10). Students must connect prefix to chain length and recognize structural formulas. This is the foundation for all organic nomenclature - branched alkanes, alkenes, alkynes, and functional group compounds all build on this base numbering system. It also tests ability to count carbons in skeletal or condensed structural formulas.",
+                expandedChemB: "Chemistry B organic chemistry unit includes alkanes, alkenes, alkynes, and functional group compounds. All nomenclature builds on the base alkane names - for example, 'pentanol' means a 5-carbon alcohol (pent- = 5, from pentane). Isomer problems require counting carbons correctly and recognizing different arrangements of the same molecular formula. Without alkane name mastery, students can't name or write formulas for any organic compounds, making the entire unit impossible.",
+                expandedApChem: "AP Chemistry organic problems assume instant recognition of alkane structures and names. Combustion analysis problems often determine that an unknown is an alkane, requiring nomenclature knowledge. Intermolecular force comparison problems use various alkanes to test understanding of dispersion forces and molecular size effects. Biochemistry questions involve lipids (fatty acids = long-chain alkanes with carboxyl group), requiring ability to recognize hydrocarbon chain length.",
+                expandedConsequence: "Students can't name organic compounds (because they don't know the base alkane names), can't interpret structural formulas in problems (don't know if they're looking at pentane or octane), struggle with isomer problems (can't verify if two structures both have same number of carbons), and have difficulty with combustion stoichiometry (can't determine molecular formula from name). This creates problems throughout organic chemistry and biochemistry units.",
+                expandedRecommendation: "Complete the 'Organic Compounds' lesson in Chemistry A. This lesson teaches systematic alkane nomenclature (meth-, eth-, prop-, but-, pent-, hex-, hept-, oct-, non-, dec-), structural formula representations (Lewis, condensed, skeletal), and provides practice counting carbons in various representations. Memorizing the first 10 alkane prefixes is essential and this lesson provides structured practice for automaticity."
+            },
+            {
+                questionNum: "Question 14",
+                topic: "The Periodic Table",
+                question: `The electron dot diagram for an unknown element X is shown. What element could this diagram represent?
+
+A. chlorine
+B. magnesium
+C. phosphorus
+D. silicon`,
+                tested: "Valence electrons & Lewis structures. Topic: The Periodic Table.",
+                chemB: "Chem B molecular forces depend on valence electrons.",
+                apChem: "AP Lewis structures & VSEPR.",
+                consequence: "Incorrect bonding and polarity predictions.",
+                recommendation: "The Periodic Table",
+                expandedTested: "This tests the ability to determine an element's identity from its valence electron count shown in electron dot (Lewis dot) diagrams. The number of dots represents valence electrons: Group 1 = 1 dot, Group 2 = 2 dots, Groups 13-18 = 3-8 dots. Students must connect dot patterns to periodic table groups and recognize that elements in the same group have the same number of valence electrons. This is fundamental for understanding chemical bonding and reactivity patterns.",
+                expandedChemB: "Chemistry B intermolecular forces unit requires understanding that molecular polarity depends on bond polarity, which depends on electronegativity differences and bonding patterns. All of this starts with valence electrons - how many bonds will form, where lone pairs are located, molecular geometry. Without quick recognition of valence electrons from periodic position, students can't draw Lewis structures, predict molecular shapes, or determine polarity. Solution chemistry and colligative properties also depend on this understanding.",
+                expandedApChem: "AP Chemistry heavily emphasizes Lewis structures, VSEPR theory (molecular geometry), and molecular polarity - all starting from valence electron count. Resonance structures, formal charge calculations, bond order, and hybridization all require correct Lewis structures. Roughly 15-20% of AP multiple choice questions directly involve Lewis structures or molecular geometry. FRQs frequently require drawing Lewis structures as the first step in multi-part problems.",
+                expandedConsequence: "Students will draw incorrect Lewis structures (wrong number of bonds/lone pairs), predict wrong molecular geometries (because VSEPR depends on correct Lewis structures), incorrectly predict molecular polarity (affecting IMF predictions), struggle with resonance structures, and have difficulty with hybridization. This cascades into problems with bonding, molecular geometry, polarity, intermolecular forces, and organic chemistry units.",
+                expandedRecommendation: "Study 'The Periodic Table' lesson in Chemistry A, specifically the sections on valence electrons, electron configuration, and electron dot diagrams. This lesson connects periodic table position to valence electron count, teaches how to draw Lewis dot diagrams, and explains octet rule and bonding capacity. This is absolutely essential before tackling Lewis structures and VSEPR in advanced courses."
+            },
+            {
+                questionNum: "Question 16",
+                topic: "Covalent Compounds",
+                question: `Match the chemical name of each oxide of phosphorus to its chemical formula.
+
+Formulas: • PO • P₂O₅ • P₂O₄ • P₄O₇
+Names: • phosphorus monoxide • diphosphorus pentoxide • tetraphosphorus heptoxide • diphosphorus tetroxide`,
+                tested: "Covalent prefix rules. Topic: Covalent Compounds.",
+                chemB: "Chem B stoichiometry relies on correct formulas.",
+                apChem: "AP thermochemistry uses phosphorus oxides frequently.",
+                consequence: "Errors in balancing and naming compounds.",
+                recommendation: "Covalent Compounds",
+                expandedTested: "This tests systematic Greek prefix usage in molecular compound nomenclature: mono- (1), di- (2), tri- (3), tetra- (4), penta- (5), hexa- (6), hepta- (7), octa- (8), nona- (9), deca- (10). The prefix before each element name tells you exactly how many atoms of that element are in the formula. 'Diphosphorus pentoxide' = P₂O₅ (di- = 2 phosphorus, penta- = 5 oxygen). This is unambiguous chemical language that must be automatic for efficient chemistry communication.",
+                expandedChemB: "Chemistry B stoichiometry problems provide compound names and require formula writing for calculations. Gas law problems often use molecular compounds (nitrogen oxides, carbon oxides) requiring prefix knowledge. Equilibrium problems involve molecular compounds like nitrogen dioxide (NO₂) and dinitrogen tetroxide (N₂O₄) where correct formula writing is essential. Without prefix mastery, students write wrong formulas, calculate wrong molar masses, and get incorrect stoichiometric answers despite correct problem-solving methods.",
+                expandedApChem: "AP Chemistry thermochemistry tables list compounds by name (dinitrogen pentoxide, carbon tetrachloride, etc.) requiring formula conversion for enthalpy calculations. Equilibrium problems involving nitrogen oxides and other molecular compounds require instant name-to-formula conversion. Kinetics problems often use molecular compounds. FRQs provide names without formulas, expecting instant recognition. Time pressure means prefix knowledge must be automatic, not looked up.",
+                expandedConsequence: "Students will write wrong formulas throughout stoichiometry (leading to wrong molar masses and wrong answers), can't interpret thermochemistry tables correctly, make errors in equilibrium expressions (wrong subscripts in formulas), struggle with balancing equations involving molecular compounds, and lose significant time on exams trying to figure out formulas from names. This affects every quantitative unit in both Chem B and AP.",
+                expandedRecommendation: "Master the 'Covalent Compounds' lesson in Chemistry A. This lesson systematically teaches Greek prefixes through pattern recognition and extensive practice, distinguishes molecular from ionic naming conventions, and provides matching exercises to build automaticity. Memorizing the prefixes and practicing name-to-formula conversion until it's automatic is essential for success in all advanced chemistry courses."
+            },
+            {
+                questionNum: "Question 17",
+                topic: "Ionic Compounds and Metals",
+                question: `Complete the chemical formula for each ionic compound.
+
+beryllium nitride: Be ___ N ___
+aluminum sulfide: Al ___ S ___`,
+                tested: "Ionic charge balancing. Topic: Ionic Compounds and Metals.",
+                chemB: "Chem B stoichiometry and solution chemistry.",
+                apChem: "AP electrochemistry and redox require charge accuracy.",
+                consequence: "Consistent formula-writing errors.",
+                recommendation: "Ionic Compounds and Metals",
+                expandedTested: "This tests the criss-cross method for writing ionic formulas by balancing charges: Be²⁺ and N³⁻ → Be₃N₂ (3×2+ = 6+, 2×3- = 6-); Al³⁺ and S²⁻ → Al₂S₃ (2×3+ = 6+, 3×2- = 6-). Students must know ionic charges from periodic position (Group 2 = +2, Group 15 = -3, etc.) and understand that total positive charge must equal total negative charge. This is fundamental for all ionic compound work and connects to oxidation states in redox chemistry.",
+                expandedChemB: "Chemistry B stoichiometry problems require correct formula writing for all calculations - wrong formula means wrong molar mass and wrong answers. Solution stoichiometry (molarity, dilutions, titrations) uses ionic compounds extensively. Precipitation reactions require predicting formulas of possible products (will BaSO₄ precipitate? must know Ba²⁺ + SO₄²⁻ = BaSO₄). Without charge balancing mastery, students write incorrect formulas throughout, making all quantitative work unreliable.",
+                expandedApChem: "AP Chemistry redox reactions require assigning oxidation states, which directly relates to ionic charges. Electrochemistry calculations depend on correct charge counting (how many electrons transferred in reaction). Net ionic equations require correct formulas for all ionic species. Thermochemistry uses many ionic compounds where formula errors propagate through entire calculations. FRQs frequently require formula writing without multiple choice options - errors here lose multiple points.",
+                expandedConsequence: "Students will consistently write wrong ionic formulas (affecting molar mass calculations), make errors in oxidation state assignments (affecting redox reactions), incorrectly balance ionic equations, struggle with Ksp calculations (wrong formula means wrong Ksp expression), and have difficulty with electrochemistry (incorrect electron counting). This affects stoichiometry, solution chemistry, redox, electrochemistry, and thermochemistry units.",
+                expandedRecommendation: "Complete the 'Ionic Compounds and Metals' lesson in Chemistry A. This lesson teaches how to determine ionic charges from periodic position, explains the criss-cross method for charge balancing, provides practice writing formulas for binary and polyatomic ionic compounds, and includes exercises for building automaticity. This is essential foundation for literally every quantitative calculation in chemistry."
+            },
+            {
+                questionNum: "Question 18",
+                topic: "Reaction Rates and Chemical Equilibrium",
+                question: `What effect does a decrease in the concentration of nitrogen monoxide (NO) gas have on the rate of reaction in this chemical equation?
+
+2NO(g) + H₂(g) → N₂O(g) + H₂O(g)
+
+A decrease in the concentration of nitrogen monoxide ______ between NO and H₂ molecules.
+The rate of the forward reaction then ______.`,
+                tested: "Collision theory. Topic: Reaction Rates.",
+                chemB: "Chem B Reaction Rates unit.",
+                apChem: "AP kinetics includes rate laws & integrated equations.",
+                consequence: "Inability to derive rate expressions.",
+                recommendation: "Reaction Rates and Chemical Equilibrium",
+                expandedTested: "This tests collision theory: reactions occur when particles collide with sufficient energy and proper orientation. Decreasing concentration means fewer particles per unit volume, which means fewer collisions per unit time, which means slower reaction rate. This is the conceptual foundation for understanding reaction rates before mathematical rate laws are introduced. Understanding the particle-level explanation for macroscopic rate changes is essential for reasoning about factors affecting rate.",
+                expandedChemB: "Chemistry B reaction rates unit covers factors affecting rate (concentration, temperature, surface area, catalysts) and introduces basic rate laws. All of this builds on collision theory understanding. Students must explain why concentration changes affect rate, why temperature increases rate, and how catalysts work - all requiring particle-level reasoning. Without collision theory foundation, rate laws become memorized formulas without conceptual understanding.",
+                expandedApChem: "AP Chemistry kinetics is a major unit involving rate laws (rate = k[A]ᵐ[B]ⁿ), integrated rate laws (relating concentration to time), reaction mechanisms (elementary steps and rate-determining steps), and catalysis. All of these require understanding that rate depends on collision frequency. Activation energy concepts (Ea and temperature effects) depend on collision theory. Experimental design questions about measuring rates require understanding which factors affect collision frequency.",
+                expandedConsequence: "Students will memorize rate laws without understanding why concentration appears in them, can't explain temperature effects on rate, struggle with mechanism problems (don't understand why rate-determining step matters), have difficulty with catalyst problems, and can't reason through experimental design questions about measuring reaction rates. This affects the entire kinetics unit in AP Chemistry.",
+                expandedRecommendation: "Study 'Reaction Rates and Chemical Equilibrium' in Chemistry A, focusing on collision theory sections. This lesson explains the particle model of reaction rates, shows how concentration/temperature/surface area affect collision frequency, and connects collision theory to activation energy. This conceptual foundation is necessary before tackling the mathematical complexity of rate laws and integrated rate laws in AP Chemistry."
+            },
+            {
+                questionNum: "Question 20",
+                topic: "Complex Structures",
+                question: `What is the chemical name of the compound Cu(NO₃)₂?
+
+A. copper nitrate
+B. copper nitride
+C. copper(II) nitrate
+D. copper(IV) nitrate
+E. copper(IV) nitrite`,
+                tested: "Transition metal oxidation states. Topic: Complex Structures.",
+                chemB: "Chem B redox and acid-base units.",
+                apChem: "AP electrochemistry & redox titrations.",
+                consequence: "Misidentifying oxidation numbers in redox.",
+                recommendation: "Complex Structures",
+                expandedTested: "This tests naming transition metal compounds using Stock system (Roman numerals indicating oxidation state): Cu(NO₃)₂ has Cu²⁺ (because NO₃⁻ is -1 charge, and two of them balance Cu²⁺), so the name is copper(II) nitrate. Students must recognize polyatomic ions (NO₃⁻ vs N³⁻), understand that transition metals have multiple possible charges, and calculate the correct oxidation state from the formula. This also tests distinguishing nitrate (NO₃⁻) from nitrite (NO₂⁻) and nitride (N³⁻).",
+                expandedChemB: "Chemistry B redox unit requires assigning oxidation states to balance redox equations. Transition metals appear extensively in redox reactions (Fe²⁺/Fe³⁺, Cr³⁺/Cr₂O₇²⁻, Mn²⁺/MnO₄⁻). Acid-base reactions often involve transition metal hydroxides and salts. Without ability to recognize oxidation states from formulas and names, students can't properly write or balance redox equations, can't identify what's being oxidized or reduced, and struggle with half-reaction method.",
+                expandedApChem: "AP Chemistry electrochemistry is heavily weighted on the exam and extensively uses transition metals. Cell potential calculations require correct oxidation states. Redox titrations (permanganate, dichromate) use transition metal ions. Complex ion equilibria (another AP topic) require understanding coordination numbers and oxidation states. FRQs regularly include transition metal redox reactions requiring oxidation state tracking through multi-step processes.",
+                expandedConsequence: "Students will assign wrong oxidation states in redox reactions (leading to incorrectly balanced equations), make errors in identifying oxidizing/reducing agents, struggle with electrochemistry cell notation, have difficulty with complex ion problems, and lose points on FRQs requiring oxidation state analysis. This affects redox, electrochemistry, and equilibrium units in both Chem B and AP.",
+                expandedRecommendation: "Master the 'Complex Structures' lesson in Chemistry A, particularly the sections on transition metals and Stock system nomenclature. This lesson teaches how to calculate oxidation states from formulas, explains why transition metals have variable charges (related to d-orbital electron configurations), provides practice with Roman numeral nomenclature, and includes comparison exercises distinguishing similar polyatomic ions. This is essential for redox and electrochemistry success."
+            },
+            {
+                questionNum: "Question 21",
+                topic: "Scientific Models and Measurements",
+                question: `A student has samples of five different types of metal. She measures the mass and volume of each sample. The measurements she took are in the table. (Table of mass and volume values)
+
+The student also has another piece of metal. Its mass is 33.5 grams and its volume is 3.2 cm³. What type of metal is the unknown sample?
+
+A. aluminum 2.70
+B. iron 7.87
+C. lead 11.34
+D. magnesium 1.74
+E. silver 10.49`,
+                tested: "Density calculation & dimensional analysis. Topic: Scientific Models and Measurements.",
+                chemB: "Chem B quantitative analysis requires math fluency.",
+                apChem: "AP FRQs require dimensional reasoning.",
+                consequence: "Math-based questions will consistently be incorrect.",
+                recommendation: "Scientific Models and Measurements",
+                expandedTested: "This tests the ability to calculate density (D = m/V), perform dimensional analysis, use significant figures correctly, and compare experimental values to known values. The student must calculate D = 33.5 g ÷ 3.2 cm³ = 10.5 g/cm³ (using correct sig figs) and match to silver (10.49 g/cm³). This combines mathematical skills (division, unit analysis) with scientific reasoning (comparing to reference values). Density is also an intensive property used for identification.",
+                expandedChemB: "Chemistry B quantitative analysis is mathematically intensive: molarity calculations, dilution problems, gas law calculations, stoichiometry with limiting reagents, percent yield, percent composition, empirical/molecular formulas. All require dimensional analysis and mathematical fluency. If basic calculations like density aren't automatic, students will struggle with every quantitative problem. Additionally, solution density problems (converting between molality and molarity) specifically require density calculations.",
+                expandedApChem: "AP Chemistry FRQs are heavily quantitative and time-pressured. Students must rapidly perform dimensional analysis, unit conversions, and multi-step calculations. Questions frequently require density in thermochemistry (heat capacity calculations), gas laws (relating mass and volume), and solution chemistry (converting between molarity and molality). The AP exam assumes mathematical fluency - students who struggle with basic calculations won't finish the exam.",
+                expandedConsequence: "Students will struggle with all quantitative calculations: stoichiometry, molarity, gas laws, thermochemistry, equilibrium constants, electrochemistry, kinetics. Even if they understand concepts, inability to perform calculations correctly means wrong numerical answers. On AP FRQs, this means losing most of the points on quantitative questions, which comprise roughly 60-70% of the FRQ section. Math deficiency becomes the limiting factor for chemistry success.",
+                expandedRecommendation: "Study 'Scientific Models and Measurements' in Chemistry A. This lesson teaches dimensional analysis systematically, covers significant figures, teaches density and other calculation-based properties, and provides extensive practice with unit conversions and multi-step calculations. Math fluency in chemistry contexts is absolutely essential - this lesson builds the computational foundation needed for every quantitative chemistry course."
+            },
+            {
+                questionNum: "Question 23",
+                topic: "Chemical Reaction Patterns",
+                question: `Copper carbonate (CuCO₃) reacts with hydrochloric acid (HCl) according to this equation:
+CuCO₃(s) + 2HCl(aq) → CuCl₂(aq) + H₂O(l) + CO₂(g)
+
+Which statement correctly describes the substances in this reaction?
+
+A. Exactly one product and two reactants are either liquid or dissolved in water.
+B. Exactly one of the reactants is in a water-based solution, but none of the products are.
+C. The reactants include both a liquid and a gas.
+D. Exactly one reactant is a solid, and exactly one product is a gas.
+E. The products include a solid, a liquid, and a gas.`,
+                tested: "State symbols and reaction classification. Topic: Chemical Reaction Patterns.",
+                chemB: "Chem B stoichiometry requires interpreting states.",
+                apChem: "AP equilibrium and thermodynamics depend on phase recognition.",
+                consequence: "Confusion in gas law and Kp problems.",
+                recommendation: "Chemical Reaction Patterns",
+                expandedTested: "This tests interpretation of state symbols: (s) = solid, (l) = liquid, (g) = gas, (aq) = aqueous (dissolved in water). Students must recognize that CuCO₃ is solid, HCl is aqueous, CuCl₂ is aqueous, H₂O is liquid, and CO₂ is gas. The correct answer identifies one solid reactant and one gas product. This also tests understanding that (aq) means dissolved in water, not the same as (l). State recognition is essential for predicting reaction types and understanding reaction conditions.",
+                expandedChemB: "Chemistry B stoichiometry includes gas law problems (must identify which species are gases to apply PV=nRT), precipitation reactions (must recognize when (s) forms), and solution stoichiometry (must know which species are (aq) to calculate molarity). Equilibrium expressions only include gases and aqueous species - solids and pure liquids are omitted. Without understanding state symbols, students can't write correct equilibrium expressions or set up gas law calculations.",
+                expandedApChem: "AP Chemistry equilibrium requires distinguishing Kc (concentrations, only (aq) species) from Kp (partial pressures, only (g) species). Thermodynamics requires recognizing phase changes vs reactions. Solubility equilibria (Ksp) only include aqueous ions, not the solid. Gibbs free energy calculations differ for gases vs aqueous species. State recognition appears in every major AP unit - it's fundamental to chemical reasoning at the particulate level.",
+                expandedConsequence: "Students will write wrong equilibrium expressions (including solids/liquids when they shouldn't), incorrectly apply gas laws (trying to use PV=nRT for aqueous species), struggle with Kp vs Kc distinctions, have difficulty with precipitation problems, and make errors in thermodynamics problems involving phase changes. This affects equilibrium, gas laws, thermodynamics, kinetics, and solution chemistry units.",
+                expandedRecommendation: "Study 'Chemical Reaction Patterns' in Chemistry A. This lesson systematically teaches state symbols, explains when substances are solid/liquid/gas/aqueous, covers reaction types and their characteristic states (combustion produces gas, precipitation produces solid), and provides practice interpreting and writing balanced equations with correct state symbols. This is foundational for all advanced chemical reasoning."
+            },
+            {
+                questionNum: "Question 24",
+                topic: "Advanced Reaction Patterns",
+                question: `In a galvanic cell, electrons are transferred from one half cell to the other as the redox reaction progresses. What happens in each half cell?
+
+The half cell in which the electrode gains electrons is where ______ occurs, and the half cell in which the electrode loses electrons is where ______ occurs.`,
+                tested: "Redox definitions. Topic: Advanced Reaction Patterns.",
+                chemB: "Chem B oxidation-reduction unit.",
+                apChem: "AP electrochemistry is a major exam unit.",
+                consequence: "Severe difficulty in cell potential calculations.",
+                recommendation: "Advanced Reaction Patterns",
+                expandedTested: "This tests fundamental redox definitions: reduction = gain of electrons (electrode gains electrons = reduction occurs), oxidation = loss of electrons (electrode loses electrons = oxidation occurs). The mnemonic OIL RIG (Oxidation Is Loss, Reduction Is Gain) is essential. Understanding electron flow direction in electrochemical cells requires these definitions. This is the foundation for all redox chemistry - assigning oxidation states, balancing redox equations, and electrochemistry calculations all depend on this.",
+                expandedChemB: "Chemistry B includes an oxidation-reduction unit covering electron transfer, oxidation states, balancing redox equations using half-reaction method, activity series, and basic electrochemistry. All of this requires absolute clarity on oxidation vs reduction definitions. Balancing redox equations requires identifying what's oxidized (loses electrons) and what's reduced (gains electrons). Without this foundation, students can't properly balance redox equations or predict redox reaction spontaneity.",
+                expandedApChem: "AP Chemistry electrochemistry is approximately 10-15% of the exam and includes galvanic cells, electrolytic cells, standard reduction potentials (E°), cell potential calculations (E°cell = E°cathode - E°anode), Nernst equation, and relationship to Gibbs free energy. All of this requires knowing that reduction occurs at cathode (gains electrons) and oxidation occurs at anode (loses electrons). Cell diagrams, electron flow direction, and half-reaction method all depend on these definitions.",
+                expandedConsequence: "Students will assign wrong half-reactions in electrochemistry (calling oxidation 'reduction' and vice versa), calculate wrong cell potentials (incorrect E°cell formula application), draw wrong electron flow in cell diagrams, struggle with electrolysis calculations, have difficulty determining if redox reactions are spontaneous, and make errors in relating ΔG to cell potential. This completely undermines the electrochemistry unit.",
+                expandedRecommendation: "Master 'Advanced Reaction Patterns' in Chemistry A, particularly the redox chemistry sections. This lesson teaches oxidation/reduction definitions through multiple contexts (electron transfer, oxidation state changes, oxygen gain/loss), introduces half-reactions, explains redox in ionic and molecular equations, and provides practice identifying oxidation and reduction in various reactions. This is absolutely essential before attempting electrochemistry."
+            },
+            {
+                questionNum: "Question 25",
+                topic: "Advanced Reaction Patterns",
+                question: `Did an oxidation-reduction reaction occur in the reaction between copper sulfate and sodium sulfide?
+CuSO₄ + Na₂S → CuS + Na₂SO₄
+
+A. This is a redox reaction because copper gained electrons.
+B. This is a redox reaction because sodium lost electrons.
+C. This is a redox reaction because sulfur gained electrons.
+D. This is not a redox reaction because no electrons were transferred.
+E. This is not a redox reaction because oxygen did not gain electrons.`,
+                tested: "Redox identification. Topic: Advanced Reaction Patterns.",
+                chemB: "Chem B redox chapter.",
+                apChem: "AP electrochemistry & balancing redox equations.",
+                consequence: "Incorrectly labeling all reactions as redox.",
+                recommendation: "Advanced Reaction Patterns",
+                expandedTested: "This tests the ability to determine if a reaction is redox by tracking oxidation state changes: Cu²⁺ → Cu²⁺ (no change), SO₄²⁻ → SO₄²⁻ (no change), Na⁺ → Na⁺ (no change), S²⁻ → S²⁻ (no change). Since no oxidation states changed, no electrons were transferred, so this is NOT a redox reaction - it's a double displacement (precipitation) reaction. Students must be able to distinguish redox from non-redox reactions by assigning oxidation states and checking for changes.",
+                expandedChemB: "Chemistry B redox unit requires identifying which reactions are redox (single displacement, combustion, disproportionation, some synthesis/decomposition) vs non-redox (double displacement, acid-base neutralization, precipitation). This determines which balancing method to use: redox equations need half-reaction method, while non-redox use simple balancing. Incorrectly identifying reactions as redox leads to using wrong balancing methods, writing incorrect half-reactions, and confusion throughout the unit.",
+                expandedApChem: "AP Chemistry requires rapid identification of redox reactions because they're balanced differently and have different thermodynamic/kinetic characteristics. Electrochemistry problems only work for redox reactions - applying E° and Nernst equation to non-redox reactions is meaningless. FRQs frequently require explaining whether a reaction is redox and justifying the answer by showing oxidation state changes. This is a fundamental classification skill appearing throughout AP.",
+                expandedConsequence: "Students will try to balance non-redox reactions using half-reaction method (wasting time and creating confusion), attempt to calculate cell potentials for non-redox reactions (making no chemical sense), incorrectly identify reaction types in classification problems, and struggle with experimental design questions about which reactions can be used for electrochemical cells. This affects redox, electrochemistry, and reaction classification throughout Chem B and AP.",
+                expandedRecommendation: "Study 'Advanced Reaction Patterns' in Chemistry A, focusing on distinguishing redox from other reaction types. This lesson teaches systematic oxidation state assignment (rules for elements, monoatomic ions, polyatomic ions, compounds), provides practice tracking oxidation state changes through reactions, and includes exercises identifying which reaction types are typically redox vs non-redox. This discrimination skill is essential for efficient problem-solving in advanced chemistry."
+            },
+            {
+                questionNum: "Question 27",
+                topic: "Covalent Compounds",
+                question: `Which statement best explains how electrons form a covalent bond in a molecule?
+
+A. A pair of electrons splits so that each atom gets one electron.
+B. A pair of electrons belongs to two atoms at the same time.
+C. A pair of electrons is transferred from one atom to another atom.
+D. A pair of electrons moves from a lower energy level to a higher energy level.
+E. A pair of electrons drifts freely from one molecule to another.`,
+                tested: "Electron sharing vs transfer. Topic: Covalent Compounds.",
+                chemB: "Chem B intermolecular forces rely on bonding type.",
+                apChem: "AP molecular geometry & polarity.",
+                consequence: "Incorrect VSEPR and polarity predictions.",
+                recommendation: "Covalent Compounds",
+                expandedTested: "This tests the fundamental distinction between covalent bonding (electron sharing) and ionic bonding (electron transfer). In covalent bonds, electron pairs are SHARED between atoms - they belong to both atoms simultaneously, creating the attraction that holds the molecule together. This distinguishes molecular compounds from ionic compounds and is prerequisite for understanding Lewis structures, molecular geometry, bond polarity, and intermolecular forces.",
+                expandedChemB: "Chemistry B intermolecular forces unit requires understanding that molecular polarity depends on bond polarity and geometry. Bond polarity exists when covalent bonds have unequal sharing (electronegativity differences). Without understanding electron sharing as the basis of covalent bonding, students can't grasp why some bonds are polar while others are nonpolar, why molecular geometry matters for polarity, or why intermolecular forces differ between molecules.",
+                expandedApChem: "AP Chemistry bonding unit covers Lewis structures, VSEPR theory, molecular orbital theory, and hybridization - all building on the concept of electron sharing in covalent bonds. Bond order, bond length, and bond strength all relate to how many electrons are shared. Resonance structures show electrons being shared across more than two atoms. Molecular polarity (essential for IMF questions) depends on understanding unequal sharing in polar covalent bonds.",
+                expandedConsequence: "Students will confuse ionic and covalent bonding properties, incorrectly predict which substances form molecules vs ionic lattices, struggle with Lewis structures (not understanding what bonds represent), have difficulty with bond polarity and molecular polarity (because they don't understand sharing), and struggle with intermolecular forces (can't distinguish intramolecular covalent bonds from intermolecular forces). This affects bonding, molecular geometry, polarity, and IMF units.",
+                expandedRecommendation: "Complete 'Covalent Compounds' in Chemistry A, particularly sections on bonding theory and electron sharing. This lesson distinguishes covalent from ionic bonding using electronegativity differences, explains how shared electron pairs create bonds, introduces Lewis structures as representations of shared electrons, and provides practice identifying bond types. This conceptual foundation is necessary before tackling advanced bonding theories in Chem B and AP."
+            },
+            {
+                questionNum: "Question 29",
+                topic: "Introduction to the Physical Sciences",
+                question: `Which sentence is a scientific statement?
+
+A. There is a substance around us that cannot be detected.
+B. Kids should go to school for 12 years.
+C. Experimentation is the best way to obtain knowledge.
+D. Unicorns once existed on Earth.
+E. There are no living things on the Moon.`,
+                tested: "Nature of science. Topic: Introduction to the Physical Sciences.",
+                chemB: "Chem B labs require experimental reasoning.",
+                apChem: "AP experimental design questions.",
+                consequence: "Misinterpreting scientific claims.",
+                recommendation: "Introduction to the Physical Sciences",
+                expandedTested: "This tests understanding of what makes a statement scientific: it must be testable and falsifiable through observation or experimentation. 'There are no living things on the Moon' is scientific because it can be tested by going to the Moon and looking (and has been tested). The other options are either opinion-based (B, C), unfalsifiable (A - can't test for undetectable substances), or inconsistent with evidence (D - no fossil evidence for unicorns).",
+                expandedChemB: "Chemistry B labs require designing experiments, forming testable hypotheses, identifying variables, and distinguishing observations from inferences. Understanding scientific methodology is essential for lab reports, error analysis, and experimental design. Students must be able to distinguish between claims that can be tested scientifically and those that cannot. Lab exams often require designing procedures to test specific hypotheses.",
+                expandedApChem: "AP Chemistry includes experimental design questions on both multiple choice and FRQs. Students must design experiments to determine rate laws, identify unknowns, measure equilibrium constants, and verify chemical principles. The 'justify' and 'explain' portions of FRQs require using scientific reasoning - distinguishing evidence-based claims from speculation. Understanding scientific methodology is explicitly tested and is a learning objective throughout the AP framework.",
+                expandedConsequence: "Students will struggle with experimental design questions (can't identify what makes a valid test), have difficulty with error analysis in labs (can't distinguish systematic from random errors), make unsupported claims in lab reports, struggle with AP FRQs requiring experimental design, and have difficulty evaluating the validity of scientific claims in real-world contexts. This affects all lab work and experimental reasoning throughout chemistry.",
+                expandedRecommendation: "Study 'Introduction to the Physical Sciences' in Chemistry A. This lesson covers the nature of science, scientific method, distinguishing observation from inference, hypothesis vs theory, experimental design basics, and characteristics of scientific statements. This provides the scientific reasoning framework needed for all lab work and experimental design questions in advanced chemistry courses."
+            },
+            {
+                questionNum: "Question 30",
+                topic: "Complex Structures",
+                question: `What is the formula of the compound vanadium(V) oxide?
+
+A. VO₂
+B. VO₅
+C. V₅O₂
+D. V₂O₅
+E. V₂O₂`,
+                tested: "Oxidation state balancing. Topic: Complex Structures.",
+                chemB: "Chem B redox & stoichiometry.",
+                apChem: "AP electrochemistry.",
+                consequence: "Incorrect oxidation number balancing.",
+                recommendation: "Complex Structures",
+                expandedTested: "This tests writing formulas from names with Roman numerals indicating oxidation states: vanadium(V) means V has +5 charge, oxide is O²⁻. To balance: V⁵⁺ needs 2.5 oxygen atoms to balance one vanadium, so use V₂O₅ (2×5+ = 10+, 5×2- = 10-). Students must understand that Roman numerals indicate oxidation state, not number of atoms, and must balance total charges correctly. This is critical for transition metal and p-block compounds with multiple oxidation states.",
+                expandedChemB: "Chemistry B stoichiometry includes many transition metal compounds where oxidation states must be interpreted correctly for formula writing. Redox reactions involve compounds like manganese dioxide (MnO₂), potassium permanganate (KMnO₄), and chromium(III) oxide (Cr₂O₃) - all requiring oxidation state-based formula interpretation. Without this skill, students write wrong formulas, leading to incorrect molar masses and wrong stoichiometric calculations throughout.",
+                expandedApChem: "AP Chemistry redox and electrochemistry extensively use transition metal compounds with various oxidation states. Half-reactions for permanganate (Mn⁷⁺ → Mn²⁺) and dichromate (Cr⁶⁺ → Cr³⁺) require understanding oxidation state changes. Thermochemistry problems use transition metal oxides. Complex ion equilibria (Fe³⁺, Cu²⁺, Ag⁺) require correct charge identification. FRQs require writing formulas from names with oxidation states - errors here propagate through multi-step problems.",
+                expandedConsequence: "Students will write wrong formulas for transition metal compounds (affecting all calculations), incorrectly balance redox equations (wrong oxidation state changes), make errors in electrochemistry (wrong number of electrons transferred), struggle with complex ion problems, and have difficulty with thermochemistry involving transition metals. This affects redox, electrochemistry, stoichiometry, and equilibrium units.",
+                expandedRecommendation: "Master 'Complex Structures' in Chemistry A, especially transition metal nomenclature with Stock system (Roman numerals). This lesson teaches how to interpret oxidation states from names, explains charge balancing when oxidation states don't match simple ratios, covers common transition metal oxidation states, and provides extensive practice writing formulas from names with oxidation states. This is essential for redox and electrochemistry success."
+            },
+            {
+                questionNum: "Question 31",
+                topic: "Ionic Compounds and Metals",
+                question: `What are the chemical names of these compounds?
+KF
+Mg₃N₂`,
+                tested: "Ionic naming rules. Topic: Ionic Compounds and Metals.",
+                chemB: "Chem B formula writing foundational.",
+                apChem: "AP requires instant ionic recognition.",
+                consequence: "Mixing ionic and covalent naming systems.",
+                recommendation: "Ionic Compounds and Metals",
+                expandedTested: "This tests systematic ionic compound naming: metal name + nonmetal root + -ide. KF = potassium fluoride (K⁺ + F⁻), Mg₃N₂ = magnesium nitride (Mg²⁺ + N³⁻). No prefixes are used for ionic compounds (unlike covalent compounds). Students must recognize ionic compounds (metal + nonmetal) and apply correct naming rules. This also requires knowing that Group 1 and Group 2 metals have fixed charges, so no Roman numerals are needed.",
+                expandedChemB: "Chemistry B assumes instant recognition of ionic compound names and formulas. Solution stoichiometry uses many ionic compounds (NaCl, CaCl₂, MgSO₄, etc.). Precipitation reactions require naming ionic products. Mixing up ionic and covalent naming (writing 'dipotassium fluoride' or 'magnesium trinitride') shows fundamental misunderstanding of compound types. All quantitative work requires correct formula writing, which depends on correct name interpretation.",
+                expandedApChem: "AP Chemistry uses ionic compounds throughout - in acid-base chemistry (salts), thermochemistry (ionic compound formation), solubility equilibria (Ksp problems), and electrochemistry. The exam assumes naming fluency - no time is given for looking up names or formulas. FRQs provide compound names and expect correct formula writing. Students who mix naming systems write wrong formulas, leading to wrong molar masses, wrong stoichiometry, and lost points.",
+                expandedConsequence: "Students will use prefixes when naming ionic compounds (showing confusion about compound types), write wrong formulas from names, have difficulty distinguishing ionic from covalent compounds in problems, make errors throughout stoichiometry, and struggle with Ksp problems (incorrect formula means incorrect Ksp expression). This affects literally every unit in chemistry because compound identification is fundamental.",
+                expandedRecommendation: "Complete 'Ionic Compounds and Metals' in Chemistry A. This lesson systematically covers ionic naming rules, explains why ionic compounds don't use prefixes (unlike covalent), distinguishes fixed-charge metals (no Roman numeral needed) from variable-charge metals (Roman numeral required), and provides extensive comparison practice between ionic and covalent naming. Mastering this prevents mixing of naming systems."
+            },
+            {
+                questionNum: "Question 33",
+                topic: "Ionic Compounds and Metals",
+                question: `Which statement correctly describes metallic bonds?
+
+A. They form when certain atoms lose electrons and other atoms gain electrons.
+B. They involve an attraction between anions and cations.
+C. They always involve both a metal and a nonmetal.
+D. They can only form between atoms of the same element.
+E. They form because electrons can move freely between atoms.`,
+                tested: "Metallic bonding model. Topic: Ionic Compounds and Metals.",
+                chemB: "Chem B energy & bonding.",
+                apChem: "AP bonding comparisons.",
+                consequence: "Confusing metallic vs ionic bonding.",
+                recommendation: "Ionic Compounds and Metals",
+                expandedTested: "This tests understanding of the metallic bonding model: metal atoms release valence electrons into a 'sea' of delocalized electrons that move freely throughout the metal structure, with metal cations held in place by attraction to the electron sea. This distinguishes metallic bonding (delocalized electrons) from ionic bonding (electron transfer creating fixed ions) and covalent bonding (localized electron pairs). The electron mobility explains metallic properties: conductivity, malleability, ductility.",
+                expandedChemB: "Chemistry B bonding and energy units compare three bonding types (ionic, covalent, metallic) and relate bonding to properties. Understanding why metals conduct electricity (mobile electrons), why ionic compounds conduct when molten but not solid (mobile ions vs fixed ions), and why covalent compounds typically don't conduct (no mobile charged particles) all depends on understanding the three bonding models. This is also essential for understanding alloys, metallic crystals, and intermetallic compounds.",
+                expandedApChem: "AP Chemistry bonding unit includes metallic bonding as one of the fundamental bonding types. AP questions compare properties of different bonding types (conductivity, melting point, malleability) requiring understanding of the particulate-level bonding model. Molecular orbital theory extends to band theory in metals. Electrochemistry involves metallic electrodes where electron flow depends on metallic bonding. This appears in bonding and electrochemistry units.",
+                expandedConsequence: "Students will incorrectly predict properties of metals (thinking they should be brittle like ionic compounds or non-conductive like covalent compounds), struggle with bonding comparison questions, have difficulty explaining conductivity differences between substance types, misunderstand electrochemical cells (how electrons flow through metallic electrodes), and struggle with solid-state chemistry. This affects bonding, electrochemistry, and properties units.",
+                expandedRecommendation: "Study 'Ionic Compounds and Metals' in Chemistry A, particularly the sections on metallic bonding and comparing bonding types. This lesson explains the electron sea model, relates metallic bonding to metallic properties, distinguishes metallic from ionic and covalent bonding, and provides practice classifying bond types based on properties. This completes the bonding foundation (ionic, covalent, metallic) needed for all advanced chemistry."
+            },
+            {
+                questionNum: "Question 38",
+                topic: "Introduction to the Physical Sciences",
+                question: `A ______ is scientific knowledge established through direct observation and remains constant.
+
+Scientific knowledge can change when scientists ______.`,
+                tested: "Scientific terminology. Topic: Introduction to the Physical Sciences.",
+                chemB: "Chem B labs and reasoning.",
+                apChem: "AP scientific argumentation.",
+                consequence: "Confusion in experimental design FRQs.",
+                recommendation: "Introduction to the Physical Sciences",
+                expandedTested: "This tests understanding of scientific terminology: a LAW is established through repeated direct observation and describes what happens (remains constant as long as observations remain consistent), while scientific knowledge changes when scientists discover new evidence or develop better explanations (theories can be modified with new data). Laws describe patterns (conservation of mass, law of constant composition), while theories explain why (atomic theory, kinetic molecular theory). Understanding this distinction is part of scientific literacy.",
+                expandedChemB: "Chemistry B labs require proper use of scientific terminology when writing lab reports: stating which laws apply to experiments (conservation of mass in stoichiometry), distinguishing observations (what was directly measured) from inferences (explanations based on theory), and understanding that experimental results can lead to revised understanding. Lab practical exams often require explaining how evidence supports or contradicts theoretical predictions.",
+                expandedApChem: "AP Chemistry FRQs include 'justify', 'explain', and 'predict' prompts requiring scientific argumentation based on laws and theories. Students must cite appropriate laws (conservation of energy, ideal gas law, Hess's law) and explain using theories (collision theory, Le Chatelier's principle, atomic structure). The AP framework explicitly tests scientific practices including distinguishing laws from theories, using evidence-based reasoning, and understanding the tentative nature of scientific knowledge.",
+                expandedConsequence: "Students will misuse scientific terminology in lab reports and FRQs (calling theories 'laws' or vice versa), struggle with 'justify your answer' questions (don't know what level of explanation is needed), have difficulty with experimental design questions (can't distinguish what can be directly observed vs what must be inferred), and misunderstand the nature of scientific knowledge (thinking all science is absolute truth). This affects all lab work and written explanations.",
+                expandedRecommendation: "Study 'Introduction to the Physical Sciences' in Chemistry A, focusing on scientific terminology (law vs theory vs hypothesis), nature of science, and scientific reasoning. This lesson explains key terminology with chemistry examples (law of conservation of mass, atomic theory, kinetic molecular theory), teaches distinction between observation and inference, and provides practice with scientific argumentation. This supports all lab work and scientific reasoning in advanced courses."
+            }
+        ];
+
+        const container = document.getElementById('questions-container');
+
+        questionsData.forEach((q, index) => {
+            const card = document.createElement('div');
+            card.className = 'question-card';
+
+            card.innerHTML = `
+                <div class="question-header">${q.questionNum} – ${q.topic}</div>
+                <div class="question-content">${q.question}</div>
+
+                <div class="analysis-grid">
+                    <div class="analysis-item">
+                        <div class="analysis-header tested" onclick="toggleContent(${index}, 'tested')">
+                            <span>What This Tested</span>
+                            <span class="toggle-icon" id="icon-${index}-tested">▼</span>
+                        </div>
+                        <div class="analysis-content" id="content-${index}-tested">
+                            <div class="analysis-brief">${q.tested}</div>
+                            <div class="analysis-explanation">${q.expandedTested}</div>
+                        </div>
+                    </div>
+
+                    <div class="analysis-item">
+                        <div class="analysis-header chem-b" onclick="toggleContent(${index}, 'chemb')">
+                            <span>Chem B Impact</span>
+                            <span class="toggle-icon" id="icon-${index}-chemb">▼</span>
+                        </div>
+                        <div class="analysis-content" id="content-${index}-chemb">
+                            <div class="analysis-brief">${q.chemB}</div>
+                            <div class="analysis-explanation">${q.expandedChemB}</div>
+                        </div>
+                    </div>
+
+                    <div class="analysis-item">
+                        <div class="analysis-header ap-chem" onclick="toggleContent(${index}, 'apchem')">
+                            <span>AP Chem Impact</span>
+                            <span class="toggle-icon" id="icon-${index}-apchem">▼</span>
+                        </div>
+                        <div class="analysis-content" id="content-${index}-apchem">
+                            <div class="analysis-brief">${q.apChem}</div>
+                            <div class="analysis-explanation">${q.expandedApChem}</div>
+                        </div>
+                    </div>
+
+                    <div class="analysis-item">
+                        <div class="analysis-header consequence" onclick="toggleContent(${index}, 'consequence')">
+                            <span>Consequences</span>
+                            <span class="toggle-icon" id="icon-${index}-consequence">▼</span>
+                        </div>
+                        <div class="analysis-content" id="content-${index}-consequence">
+                            <div class="analysis-brief">${q.consequence}</div>
+                            <div class="analysis-explanation">${q.expandedConsequence}</div>
+                        </div>
+                    </div>
+
+                    <div class="analysis-item">
+                        <div class="analysis-header recommendation" onclick="toggleContent(${index}, 'recommendation')">
+                            <span>Recommendation</span>
+                            <span class="toggle-icon" id="icon-${index}-recommendation">▼</span>
+                        </div>
+                        <div class="analysis-content" id="content-${index}-recommendation">
+                            <div class="analysis-brief">${q.recommendation}</div>
+                            <div class="analysis-explanation">${q.expandedRecommendation}</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            container.appendChild(card);
+        });
+
+        function toggleContent(questionIndex, type) {
+            const content = document.getElementById(`content-${questionIndex}-${type}`);
+            const icon = document.getElementById(`icon-${questionIndex}-${type}`);
+
+            content.classList.toggle('open');
+            icon.classList.toggle('open');
+        }
+    </script>
+</body>
+</html>
